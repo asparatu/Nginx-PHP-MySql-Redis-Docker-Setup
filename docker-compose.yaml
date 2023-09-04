@@ -8,6 +8,14 @@ services:
         networks:
             - default
         restart: unless-stopped
+    app:
+        container_name: app
+        hostname: salix-nigra
+        build:
+            dockerfile: ./php/Dockerfile
+        networks:
+            - default
+        restart: unless-stopped
 networks:
     default:
         name: mms.philexport.local
