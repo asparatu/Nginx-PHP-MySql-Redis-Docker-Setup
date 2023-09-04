@@ -1,0 +1,14 @@
+services:
+    web:
+        container_name: web
+        hostname: pinus-strobus
+        image: nginx:latest
+        ports:
+            - 81:80
+        networks:
+            - default
+        restart: unless-stopped
+networks:
+    default:
+        name: mms.philexport.local
+        external: false
