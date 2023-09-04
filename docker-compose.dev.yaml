@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
     web:
-        container_name: web-mynetwork-local
+        container_name: web-dev-mynetwork-local
         hostname: pinus-strobus
         image: nginx:latest
         ports:
@@ -13,20 +13,19 @@ services:
             - default
         restart: unless-stopped
     app:
-        container_name: app-mynetwork-local
+        container_name: app-dev-mynetwork-local
         hostname: salix-nigra
         build:
             dockerfile: ./php/Dockerfile
         volumes:
-            - /var/www/html/vendor
             - ./app:/var/www/html
         networks:
             - default
         restart: unless-stopped
     db:
-        container_name: db-mynetwork-local
+        container_name: db-dev-mynetwork-local
         hostname: quercus-alba
-        image: mysql:8.0
+        image: mysql:latest
         volumes:
             - ./mysqldata:/var/lib/mysql
         ports:
@@ -40,7 +39,7 @@ services:
         networks:
             - default
     adminer:
-        container_name: adminer-mynetwork-local
+        container_name: adminer-dev-mynetwork-local
         hostname: ulmus-rubra
         image: adminer
         ports:
@@ -57,5 +56,5 @@ volumes:
     mysqldata:
 networks:
     default:
-        name: mynetwork.local
+        name: dev.mynetwork.local
         external: false
