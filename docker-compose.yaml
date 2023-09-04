@@ -4,11 +4,10 @@ services:
     web:
         container_name: web-mynetwork-local
         hostname: pinus-strobus
-        image: nginx:latest
+        build:
+            dockerfile: ./nginx/Dockerfile
         ports:
             - 81:80
-        volumes:
-            - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - default
         restart: unless-stopped
@@ -17,25 +16,15 @@ services:
         hostname: salix-nigra
         build:
             dockerfile: ./php/Dockerfile
-        volumes:
-            - /var/www/html/vendor
-            - ./app:/var/www/html
         networks:
             - default
         restart: unless-stopped
     db:
         container_name: db-mynetwork-local
         hostname: quercus-alba
-        image: mysql:8.0
+        image: mysql:latest
         volumes:
             - ./mysqldata:/var/lib/mysql
-        ports:
-            - 3306:3306
-        environment:
-            MYSQL_ROOT_PASSWORD: secret
-            MYSQL_USER: user
-            MYSQL_PASSWORD: secret
-            MYSQL_DATABASE: docker-php
         restart: unless-stopped
         networks:
             - default
